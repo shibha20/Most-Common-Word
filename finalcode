@@ -1,0 +1,19 @@
+import re 
+
+class Solution(object):
+    def mostCommonWord(self, paragraph, banned):
+        notbanned = {}  
+        paragraphs_list = paragraph.lower().split()
+        for i in range(0,len(paragraphs_list)):
+            paragraphs_list[i] = re.sub(r'[^a-zA-Z]', '', paragraphs_list[i])
+        for i in paragraphs_list:
+            if i not in banned:
+                if i not in notbanned:
+                    notbanned[i] = 1
+                else:
+                    notbanned[i] += 1
+        
+        maxoccurence = max(notbanned.values())
+        for key in notbanned.keys():
+            if notbanned[key] == maxoccurence:
+                return ''.join(key)
